@@ -2,6 +2,8 @@ generators:
   php: "ClientGenerator.php"
 
 repos:
+  current:
+    name: "MCSDK-Automation-Framework-PHP"
   core:
     name: "MCSDK-Automation-Framework-Core"
     owner: "salesforce-marketingcloud"

@@ -1,27 +1,21 @@
 import os
-from bootstrap import TRAVIS_BUILD_DIR
-from utils.Command import Command
-from utils.Filesystem import chdir
+from mcsdk.code import codebase
+from mcsdk.integration.os.process import Command
+from mcsdk.integration.os.utils import chdir
 
 
-class Codebase:
-    """ Codebase processes class """
-
-    def __init__(self, config, folder):
-        """ Codebase class constructor """
-        self.__config = config
-        self.__repo_folder = folder
-        self.__package_folder = os.path.join(self.__repo_folder, self.__config['repos']['sdk']['packageName'])
+class Setup(codebase.AbstractCodeSetup):
+    """ Handles the code setup processes """
 
     def install_dependencies(self):
-        chdir(self.__package_folder)
+        chdir(self._package_folder)
 
-        command = Command(['php', '-f', self.__config['repos']['core']['composer_cli'], 'install'])
+        command = Command(['php', '-f', self._config['repos']['core']['composer_cli'], 'install'])
         command.run()
 
         output = command.get_output()
 
-        chdir(TRAVIS_BUILD_DIR)  # Get back to previous directory
+        chdir(self._root_dir)  # Get back to previous directory
 
         print('----- Dependencies install log -----')
         print(output)
@@ -35,12 +29,12 @@ class Codebase:
         return 0
 
     def update_dependencies(self):
-        chdir(self.__package_folder)
+        chdir(self._package_folder)
 
-        command = Command(['php', '-f', self.__config['repos']['core']['composer_cli'], 'update'])
+        command = Command(['php', '-f', self._config['repos']['core']['composer_cli'], 'update'])
         command.run()
 
-        chdir(TRAVIS_BUILD_DIR)  # Get back to previous directory
+        chdir(self._root_dir)  # Get back to previous directory
 
         print('----- Dependencies install log -----')
         print(command.get_output())
@@ -50,12 +44,16 @@ class Codebase:
 
         return 0
 
+
+class Integration(codebase.AbstractCodeIntegration):
+    """ Handles the code integration processes """
+
     def run_tests(self):
-        chdir(self.__package_folder)
+        chdir(self._package_folder)
 
         # Vars
-        config_file = os.path.join(self.__package_folder, 'phpunit.xml.dist')
-        test_suite = ','.join(self.__config['repos']['sdk']['tests'])
+        config_file = os.path.join(self._package_folder, 'phpunit.xml.dist')
+        test_suite = ','.join(self._config['repos']['sdk']['tests'])
 
         # logging the working directory for debug
         print('----- Tests: -----')
@@ -63,7 +61,7 @@ class Codebase:
 
         # Command to run the unit tests
         cmd = '{phpunit} -c {config_file} --testsuite={testsuite}'.format(
-            phpunit=os.path.join(self.__package_folder, os.sep.join('vendor/bin/phpunit'.split('/'))),
+            phpunit=os.path.join(self._package_folder, os.sep.join('vendor/bin/phpunit'.split('/'))),
             config_file=config_file,
             testsuite=test_suite
         )
@@ -71,10 +69,11 @@ class Codebase:
         command = Command(cmd)
         command.run()
 
-        chdir(TRAVIS_BUILD_DIR)  # Get back to previous directory
+        chdir(self._root_dir)  # Get back to previous directory
 
         if command.returned_errors():
             print('Unit tests FAILED')
             print(command.get_output())
+            return 255
 
         return 0

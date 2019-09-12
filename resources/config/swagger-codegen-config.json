@@ -1,0 +1,15 @@
+{
+  "srcBasePath": "lib",
+  "packagePath": "SalesForce",
+  "variableNamingConvention": "camelCase",
+  "invokerPackage": "SalesForce\\MarketingCloud",
+  "groupId": "SalesForce\\MarketingCloud",
+  "artifactId": "php-sdk",
+  "artifactVersion": "1.0.0",
+  "modelPackage": "Model",
+  "apiPackage": "Api",
+  "hideGenerationTimestamp": true,
+  "composerVendorName": "salesforce-marketingcloud",
+  "composerProjectName": "mcsdk-automation-php",
+  "clientClassName": "Client"
+}

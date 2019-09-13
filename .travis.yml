@@ -13,6 +13,9 @@ branches:
 php:
   - "7.3"
 
+python:
+  - "3.7"
+
 stages:
   - integration
 
@@ -23,6 +26,7 @@ before_install:
   - wget https://phar.phpunit.de/phpunit-8.phar
   - sudo mv $PWD/phpunit-8.phar /usr/local/bin/phpunit
   - sudo chmod +x /usr/local/bin/phpunit
+  - pip install --upgrade pip
 
 install:
   - pip install -r requirements.txt

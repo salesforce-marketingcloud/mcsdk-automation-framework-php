@@ -22,22 +22,23 @@ stages:
 
 before_install:
   - wget https://getcomposer.org/download/1.9.0/composer.phar
-  - sudo mv $PWD/composer.phar /usr/local/bin/composer
+  - sudo mv ${PWD}/composer.phar /usr/local/bin/composer
   - sudo chmod +x /usr/local/bin/composer
   - wget https://phar.phpunit.de/phpunit-8.phar
-  - sudo mv $PWD/phpunit-8.phar /usr/local/bin/phpunit
+  - sudo mv ${PWD}/phpunit-8.phar /usr/local/bin/phpunit
   - sudo chmod +x /usr/local/bin/phpunit
 
 install:
   - pip3 install -r requirements.txt
+  - git clone https://salesforce-marketingcloud:${GITHUB_TOKEN}@github.com/salesforce-marketingcloud/MCSDK-Automation-Framework-Core.git ${PWD}/../MCSDK-Automation-Framework-Core
+  - pip3 install ${PWD}/../MCSDK-Automation-Framework-Core/dist/mcsdk-automation-framework-core-1.0.0.tar.gz
+
+before_script:
+  - git clone https://salesforce-marketingcloud:$GITHUB_TOKEN@github.com/salesforce-marketingcloud/MCSDK-Automation-Framework-Core.git ${PWD}/../MCSDK-Automation-Framework-Core
+  - pip3 install ${PWD}/../MCSDK-Automation-Framework-Core/dist/mcsdk-automation-framework-core-1.0.0.tar.gz
 
 jobs:
   include:
-    - stage: setup
-      name: "Setup the code"
-      script:
-        - python3 core_clone.py
-        - pip3 install $PWD/../MCSDK-Automation-Framework-Core/dist/mcsdk-automation-framework-core-1.0.0.tar.gz
     - stage: integration
       name: "Integration"
-      script: python3 src/integrator/main.py
+      script: "python src/integrator/main.py"

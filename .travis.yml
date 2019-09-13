@@ -26,11 +26,14 @@ before_install:
   - wget https://phar.phpunit.de/phpunit-8.phar
   - sudo mv $PWD/phpunit-8.phar /usr/local/bin/phpunit
   - sudo chmod +x /usr/local/bin/phpunit
-  - git clone git@github.com:salesforce-marketingcloud/MCSDK-Automation-Framework-Core.git $PWD/../MCSDK-Automation-Framework-Core
 
 install:
   - pip3 install -r requirements.txt
   - pip3 install dist/mcsdk-automation-framework-core-1.0.0.tar.gz
+
+before_script:
+  - git clone https://salesforce-marketingcloud:$GITHUB_TOKEN@github.com/salesforce-marketingcloud/MCSDK-Automation-Framework-Core.git $PWD/../MCSDK-Automation-Framework-Core
+  - pip3 install $PWD/../MCSDK-Automation-Framework-Core/dist/mcsdk-automation-framework-core-1.0.0.tar.gz
 
 jobs:
   include:

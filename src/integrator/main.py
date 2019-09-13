@@ -10,8 +10,8 @@ repo_sdk_dir = cfg['repos']['sdk']['dir']
 
 # code generation components
 generator = CodeGenerator(current_dir, cfg, config_dir, templates_dir, repo_sdk_dir)
-setup = CodeSetup(TRAVIS_BUILD_DIR, cfg, repo_sdk_dir)
-integration = CodeIntegration(TRAVIS_BUILD_DIR, cfg, repo_sdk_dir)
+setup = CodeSetup(TRAVIS_REPO_OWNER_DIR, cfg, repo_sdk_dir)
+integration = CodeIntegration(TRAVIS_REPO_OWNER_DIR, cfg, repo_sdk_dir)
 
 # Run the integration
 runner.run(config=cfg, code_generator=generator, code_setup=setup, code_integration=integration)

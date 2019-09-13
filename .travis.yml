@@ -33,10 +33,6 @@ install:
   - git clone https://salesforce-marketingcloud:${GITHUB_TOKEN}@github.com/salesforce-marketingcloud/MCSDK-Automation-Framework-Core.git ${PWD}/../MCSDK-Automation-Framework-Core
   - pip3 install ${PWD}/../MCSDK-Automation-Framework-Core/dist/mcsdk-automation-framework-core-1.0.0.tar.gz
 
-before_script:
-  - git clone https://salesforce-marketingcloud:$GITHUB_TOKEN@github.com/salesforce-marketingcloud/MCSDK-Automation-Framework-Core.git ${PWD}/../MCSDK-Automation-Framework-Core
-  - pip3 install ${PWD}/../MCSDK-Automation-Framework-Core/dist/mcsdk-automation-framework-core-1.0.0.tar.gz
-
 jobs:
   include:
     - stage: integration

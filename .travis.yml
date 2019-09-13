@@ -32,14 +32,15 @@ before_install:
 install:
   - pip3 install -r requirements.txt
   - git clone https://salesforce-marketingcloud:${GITHUB_TOKEN}@github.com/salesforce-marketingcloud/MCSDK-Automation-Framework-Core.git ${PWD}/../MCSDK-Automation-Framework-Core
-  - cd ${PWD}/../MCSDK-Automation-Framework-Core && git checkout ${HEAD_BRANCH} && cd ${PWD}
+  - cd ${PWD}/../MCSDK-Automation-Framework-Core && git checkout ${HEAD_BRANCH}
+  - cd ${TRAVIS_BUILD_DIR}
   - pip3 install ${PWD}/../MCSDK-Automation-Framework-Core/dist/mcsdk-automation-framework-core-1.0.0.tar.gz
 
 before_script:
-  - python3 show_env.py
+  - python3 ${TRAVIS_BUILD_DIR}/show_env.py
 
 jobs:
   include:
     - stage: integration
       name: "Integration"
-      script: python3 src/integrator/main.py
+      script: python3 ${TRAVIS_BUILD_DIR}/src/integrator/main.py

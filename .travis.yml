@@ -5,6 +5,8 @@ sudo: required
 addons:
   apt:
     update: true
+    packages:
+      - python3-pip
 
 branches:
   except:
@@ -12,10 +14,6 @@ branches:
 
 php:
   - "7.3"
-
-python:
-  - "3.7"
-
 stages:
   - integration
 
@@ -26,11 +24,10 @@ before_install:
   - wget https://phar.phpunit.de/phpunit-8.phar
   - sudo mv $PWD/phpunit-8.phar /usr/local/bin/phpunit
   - sudo chmod +x /usr/local/bin/phpunit
-  - pip install --upgrade pip
 
 install:
-  - pip install -r requirements.txt
-  - pip install dist/mcsdk-automation-framework-core-1.0.0.tar.gz
+  - pip3 install -r requirements.txt
+  - pip3 install dist/mcsdk-automation-framework-core-1.0.0.tar.gz
 
 jobs:
   include:

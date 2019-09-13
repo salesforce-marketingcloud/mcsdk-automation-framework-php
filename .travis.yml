@@ -17,6 +17,7 @@ php:
   - "7.3"
 
 stages:
+  - setup
   - integration
 
 before_install:
@@ -30,12 +31,13 @@ before_install:
 install:
   - pip3 install -r requirements.txt
 
-before_script:
-  - git clone https://salesforce-marketingcloud:$GITHUB_TOKEN@github.com/salesforce-marketingcloud/MCSDK-Automation-Framework-Core.git $PWD/../MCSDK-Automation-Framework-Core
-  - pip3 install $PWD/../MCSDK-Automation-Framework-Core/dist/mcsdk-automation-framework-core-1.0.0.tar.gz
-
 jobs:
   include:
+    - stage: setup
+      name: "Setup the code"
+      script:
+        - git clone https://salesforce-marketingcloud:{$GITHUB_TOKEN}@github.com/salesforce-marketingcloud/MCSDK-Automation-Framework-Core.git $PWD/../MCSDK-Automation-Framework-Core
+        - pip3 install $PWD/../MCSDK-Automation-Framework-Core/dist/mcsdk-automation-framework-core-1.0.0.tar.gz
     - stage: integration
       name: "Integration"
       script: "python src/integrator/main.py"

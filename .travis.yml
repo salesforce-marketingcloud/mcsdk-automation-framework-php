@@ -36,8 +36,8 @@ jobs:
     - stage: setup
       name: "Setup the code"
       script:
-        - python core_clone.py
+        - python3 core_clone.py
         - pip3 install $PWD/../MCSDK-Automation-Framework-Core/dist/mcsdk-automation-framework-core-1.0.0.tar.gz
     - stage: integration
       name: "Integration"
-      script: python src/integrator/main.py
+      script: python3 src/integrator/main.py

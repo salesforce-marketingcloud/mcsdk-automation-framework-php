@@ -1,0 +1,35 @@
+language: php
+dist: bionic
+sudo: required
+
+addons:
+  apt:
+    update: true
+
+branches:
+  except:
+    - master
+
+php:
+  - "7.3"
+
+stages:
+  - integration
+
+before_install:
+  - wget https://getcomposer.org/download/1.9.0/composer.phar
+  - sudo mv $PWD/composer.phar /usr/local/bin/composer
+  - sudo chmod +x /usr/local/bin/composer
+  - wget https://phar.phpunit.de/phpunit-8.phar
+  - sudo mv $PWD/phpunit-8.phar /usr/local/bin/phpunit
+  - sudo chmod +x /usr/local/bin/phpunit
+
+install:
+  - pip install -r requirements.txt
+  - pip install dist/mcsdk-automation-framework-core-1.0.0.tar.gz
+
+jobs:
+  include:
+    - stage: integration
+      name: "Integration"
+      script: "python src/integrator/main.py"

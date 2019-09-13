@@ -1,5 +1,5 @@
 import os
-from mcsdk.code import codebase
+from mcsdk.codebase import codebase
 from mcsdk.integration.os.process import Command
 from mcsdk.integration.os.utils import chdir
 

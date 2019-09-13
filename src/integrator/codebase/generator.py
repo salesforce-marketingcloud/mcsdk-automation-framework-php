@@ -1,5 +1,5 @@
 import os
-from mcsdk.code import generator
+from mcsdk.codebase import generator
 from mcsdk.integration.os.process import Command
 
 

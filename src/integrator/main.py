@@ -1,8 +1,8 @@
 from mcsdk.integration import runner
 from bootstrap import *
-from code.generator import CodeGenerator
-from code.codebase import Setup as CodeSetup
-from code.codebase import Integration as CodeIntegration
+from codebase.generator import CodeGenerator
+from codebase.codebase import Setup as CodeSetup
+from codebase.codebase import Integration as CodeIntegration
 
 # Vars for the integration run
 repo_core_dir = cfg['repos']['core']['dir']

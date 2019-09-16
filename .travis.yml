@@ -38,9 +38,6 @@ install:
   - cd ${TRAVIS_BUILD_DIR}
   - pip3 install ${PWD}/../MCSDK-Automation-Framework-Core/dist/mcsdk-automation-framework-core-1.0.0.tar.gz
 
-before_script:
-  - python3 ${TRAVIS_BUILD_DIR}/show_env.py
-
 jobs:
   include:
     - stage: integration

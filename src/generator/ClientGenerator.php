@@ -26,7 +26,7 @@ class ClientGenerator
     /**
      * @var string
      */
-    private $projectDir = "";
+    private $repoDir = "";
 
     /**
      * @param string $templatesDir
@@ -45,11 +45,11 @@ class ClientGenerator
     }
 
     /**
-     * @param string $projectDir
+     * @param string $repoDir
      */
-    public function setProjectDir(string $projectDir): void
+    public function setRepoDir(string $repoDir): void
     {
-        $this->projectDir = $projectDir;
+        $this->repoDir = $repoDir;
     }
 
     /**
@@ -75,6 +75,7 @@ class ClientGenerator
         if (isset($this->data[$name])) {
             return $this->data[$name];
         }
+
         return $default;
     }
 
@@ -93,7 +94,7 @@ class ClientGenerator
         $clientClassName = $config["clientClassName"];
         $path = $this->templatesDir . DIRECTORY_SEPARATOR . "{$clientClassName}.phtml";
         $apiClassDir = implode(DIRECTORY_SEPARATOR, [
-            dirname($this->projectDir) . DIRECTORY_SEPARATOR . $config["composerProjectName"],
+            $this->repoDir,
             $config["packagePath"],
             $config["srcBasePath"],
             $config["apiPackage"]
@@ -124,8 +125,13 @@ class ClientGenerator
         require realpath($path);
         $contents = str_replace("<//php_template", "<?php", ob_get_clean());
 
+        $apiClassFile = implode(DIRECTORY_SEPARATOR, [
+            $apiClassDir,
+            "{$clientClassName}.php"
+        ]);
+
         // Write the generated file
-        $fh = fopen($apiClassDir . DIRECTORY_SEPARATOR . "{$clientClassName}.php", 'w');
+        $fh = fopen($apiClassFile, 'w');
         fputs($fh, $contents);
         fclose($fh);
     }
@@ -134,5 +140,5 @@ class ClientGenerator
 $generator = new ClientGenerator();
 $generator->setTemplatesDir($argv[1]);
 $generator->setConfigFile($argv[2]);
-$generator->setProjectDir($argv[3]);
+$generator->setRepoDir($argv[3]);
 $generator->run();

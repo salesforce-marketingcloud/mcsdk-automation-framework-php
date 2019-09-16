@@ -74,6 +74,10 @@ class ClientGenerator
      */
     public function run(): void
     {
+        if (!file_exists($this->configFile)) {
+            throw new \RuntimeException("File {$this->configFile} does not exist");
+        }
+
         $projectDir = dirname(dirname(__DIR__));
         $config = json_decode(file_get_contents(realpath($this->configFile)), true);
         $clientClassName = $config["clientClassName"];
@@ -97,7 +101,7 @@ class ClientGenerator
                 if (in_array($file, ['.', '..', "AbstractApi.php", "{$clientClassName}.php"]) || is_dir($fullPath)) {
                     continue;
                 }
-    
+
                 $clsName = rtrim($file, ".php");
                 $classes[$clsName] = "\\" . $config["invokerPackage"] . "\\" . $config["apiPackage"] . "\\" . $clsName;
             }
@@ -111,7 +115,9 @@ class ClientGenerator
         $contents = str_replace("<//php_template", "<?php", ob_get_clean());
 
         // Write the generated file
-        file_put_contents($apiClassDir . DIRECTORY_SEPARATOR . "{$clientClassName}.php", $contents);
+        $fh = fopen($apiClassDir . DIRECTORY_SEPARATOR . "{$clientClassName}.php", 'w');
+        fputs($fh, $contents);
+        fclose($fh);
     }
 }
 

@@ -28,7 +28,7 @@ before_install:
   - wget https://phar.phpunit.de/phpunit-8.phar
   - sudo mv ${PWD}/phpunit-8.phar /usr/local/bin/phpunit
   - sudo chmod +x /usr/local/bin/phpunit
-  - pip3 install wheel
+  - pip3 install wheel --no-cache-dir
 
 install:
   - pip3 install -r requirements.txt

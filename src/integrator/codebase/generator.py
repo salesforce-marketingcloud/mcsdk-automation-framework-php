@@ -6,9 +6,6 @@ from mcsdk.integration.os.process import Command
 class CodeGenerator(generator.AbstractGenerator):
     """ Handles the Swagger codegen process but also custom generation processes """
 
-    def __init__(self, root_dir, config, config_dir, templates_dir, repo_dir):
-        super().__init__(root_dir, config, config_dir, templates_dir, repo_dir)
-
     def generate_sdk(self):
         """ Generates the SDK code using the swagger codegen library """
         cmd = [

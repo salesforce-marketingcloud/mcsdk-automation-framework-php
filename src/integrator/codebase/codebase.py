@@ -52,7 +52,7 @@ class Integration(codebase.AbstractCodeIntegration):
         chdir(self._package_folder)
 
         # Vars
-        config_file = os.path.join(self._package_folder, 'phpunit.xml.dist')
+        config_file = os.sep.join([self._package_folder, 'phpunit.xml.dist'])
         test_suite = ','.join(self._config['repos']['sdk']['tests'])
 
         # logging the working directory for debug
@@ -61,7 +61,7 @@ class Integration(codebase.AbstractCodeIntegration):
 
         # Command to run the unit tests
         cmd = '{phpunit} -c {config_file} --testsuite={testsuite}'.format(
-            phpunit=os.path.join(self._package_folder, os.sep.join('vendor/bin/phpunit'.split('/'))),
+            phpunit=os.sep.join([self._package_folder, os.sep.join(['vendor', 'bin', 'phpunit'])]),
             config_file=config_file,
             testsuite=test_suite
         )

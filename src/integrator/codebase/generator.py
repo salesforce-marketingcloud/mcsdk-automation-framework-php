@@ -23,7 +23,7 @@ class CodeGenerator(generator.AbstractGenerator):
             '-t',
             '{templates_dir}'.format(templates_dir=os.path.join(self._templates_dir, 'mustache')),
             '-c',
-            '{config_file}'.format(config_file=os.path.join(self._config_dir, 'swagger-codegen-config.json')),
+            '{config_file}'.format(config_file=os.sep.join([self._config_dir, 'swagger-codegen-config.json'])),
             '-o',
             '{sdk_folder}'.format(sdk_folder=self._repo_dir)
         ]

@@ -38,9 +38,9 @@ class CodeGenerator(generator.AbstractGenerator):
         cmd = [
             'php',
             '-f',
-            os.path.join(self._root_dir, 'src', 'generator', self._config['generators']['php']),
+            os.sep.join([self._root_dir, 'src', 'generator', self._config['generators']['php']]),
             os.path.join(self._templates_dir, 'phtml'),
-            os.path.join(self._config_dir, 'swagger-codegen-config.json')
+            os.sep.join([self._config_dir, 'swagger-codegen-config.json'])
         ]
 
         command = Command(cmd)

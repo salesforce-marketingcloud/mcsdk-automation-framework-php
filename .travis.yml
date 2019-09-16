@@ -28,6 +28,7 @@ before_install:
   - wget https://phar.phpunit.de/phpunit-8.phar
   - sudo mv ${PWD}/phpunit-8.phar /usr/local/bin/phpunit
   - sudo chmod +x /usr/local/bin/phpunit
+  - pip3 install wheel
 
 install:
   - pip3 install -r requirements.txt
@@ -36,9 +37,6 @@ install:
   - git checkout -f ${HEAD_BRANCH}
   - cd ${TRAVIS_BUILD_DIR}
   - pip3 install ${PWD}/../MCSDK-Automation-Framework-Core/dist/mcsdk-automation-framework-core-1.0.0.tar.gz
-
-before_script:
-  - python3 ${TRAVIS_BUILD_DIR}/show_env.py
 
 jobs:
   include:

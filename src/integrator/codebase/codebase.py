@@ -23,7 +23,7 @@ class Setup(codebase.AbstractCodeSetup):
         if command.returned_errors():
             return 255
 
-        if output.find('You may be getting outdated dependencies. Run update to update them.'):
+        if output.find('You may be getting outdated dependencies. Run update to update them.') != -1:
             return self.update_dependencies()
 
         return 0
@@ -36,7 +36,7 @@ class Setup(codebase.AbstractCodeSetup):
 
         chdir(self._root_dir)  # Get back to previous directory
 
-        print('----- Dependencies install log -----')
+        print('----- Dependencies update log -----')
         print(command.get_output())
 
         if command.returned_errors():

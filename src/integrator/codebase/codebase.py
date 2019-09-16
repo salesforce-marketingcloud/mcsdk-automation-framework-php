@@ -10,7 +10,7 @@ class Setup(codebase.AbstractCodeSetup):
     def install_dependencies(self):
         chdir(self._package_folder)
 
-        command = Command(['php', '-f', self._config['repos']['core']['composer_cli'], 'install'])
+        command = Command('php -f {cli} install'.format(cli=self._config['repos']['core']['composer_cli']))
         command.run()
 
         output = command.get_output()
@@ -31,7 +31,7 @@ class Setup(codebase.AbstractCodeSetup):
     def update_dependencies(self):
         chdir(self._package_folder)
 
-        command = Command(['php', '-f', self._config['repos']['core']['composer_cli'], 'update'])
+        command = Command('php -f {cli} update'.format(cli=self._config['repos']['core']['composer_cli']))
         command.run()
 
         chdir(self._root_dir)  # Get back to previous directory

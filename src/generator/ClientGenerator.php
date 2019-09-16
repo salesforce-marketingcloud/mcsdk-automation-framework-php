@@ -134,6 +134,8 @@ class ClientGenerator
         $fh = fopen($apiClassFile, 'w');
         fputs($fh, $contents);
         fclose($fh);
+
+        echo "\n PHP code generated! \n";
     }
 }
 

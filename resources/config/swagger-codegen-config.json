@@ -10,6 +10,6 @@
   "apiPackage": "Api",
   "hideGenerationTimestamp": true,
   "composerVendorName": "salesforce-marketingcloud",
-  "composerProjectName": "mcsdk-automation-php",
+  "composerProjectName": "MCSDK-Automation-Framework-PHP",
   "clientClassName": "Client"
 }

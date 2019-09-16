@@ -1,5 +1,5 @@
 import os
-from mcsdk.code import codebase
+from mcsdk.codebase import codebase
 from mcsdk.integration.os.process import Command
 from mcsdk.integration.os.utils import chdir
 
@@ -10,7 +10,7 @@ class Setup(codebase.AbstractCodeSetup):
     def install_dependencies(self):
         chdir(self._package_folder)
 
-        command = Command(['php', '-f', self._config['repos']['core']['composer_cli'], 'install'])
+        command = Command('php -f {cli} install'.format(cli=self._config['repos']['core']['composer_cli']))
         command.run()
 
         output = command.get_output()
@@ -23,7 +23,7 @@ class Setup(codebase.AbstractCodeSetup):
         if command.returned_errors():
             return 255
 
-        if output.find('You may be getting outdated dependencies. Run update to update them.'):
+        if output.find('You may be getting outdated dependencies. Run update to update them.') != -1:
             return self.update_dependencies()
 
         return 0
@@ -31,12 +31,12 @@ class Setup(codebase.AbstractCodeSetup):
     def update_dependencies(self):
         chdir(self._package_folder)
 
-        command = Command(['php', '-f', self._config['repos']['core']['composer_cli'], 'update'])
+        command = Command('php -f {cli} update'.format(cli=self._config['repos']['core']['composer_cli']))
         command.run()
 
         chdir(self._root_dir)  # Get back to previous directory
 
-        print('----- Dependencies install log -----')
+        print('----- Dependencies update log -----')
         print(command.get_output())
 
         if command.returned_errors():
@@ -52,7 +52,7 @@ class Integration(codebase.AbstractCodeIntegration):
         chdir(self._package_folder)
 
         # Vars
-        config_file = os.path.join(self._package_folder, 'phpunit.xml.dist')
+        config_file = os.sep.join([self._package_folder, 'phpunit.xml.dist'])
         test_suite = ','.join(self._config['repos']['sdk']['tests'])
 
         # logging the working directory for debug
@@ -61,7 +61,7 @@ class Integration(codebase.AbstractCodeIntegration):
 
         # Command to run the unit tests
         cmd = '{phpunit} -c {config_file} --testsuite={testsuite}'.format(
-            phpunit=os.path.join(self._package_folder, os.sep.join('vendor/bin/phpunit'.split('/'))),
+            phpunit=os.sep.join([self._package_folder, os.sep.join(['vendor', 'bin', 'phpunit'])]),
             config_file=config_file,
             testsuite=test_suite
         )

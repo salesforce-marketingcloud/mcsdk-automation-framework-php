@@ -6,8 +6,6 @@
  */
 class ClientGenerator
 {
-    const DS = DIRECTORY_SEPARATOR;
-
     /**
      * @var array
      */
@@ -26,6 +24,11 @@ class ClientGenerator
     private $configFile = "";
 
     /**
+     * @var string
+     */
+    private $repoDir = "";
+
+    /**
      * @param string $templatesDir
      */
     public function setTemplatesDir(string $templatesDir)
@@ -39,6 +42,14 @@ class ClientGenerator
     public function setConfigFile(string $configFile)
     {
         $this->configFile = $configFile;
+    }
+
+    /**
+     * @param string $repoDir
+     */
+    public function setRepoDir(string $repoDir): void
+    {
+        $this->repoDir = $repoDir;
     }
 
     /**
@@ -64,6 +75,7 @@ class ClientGenerator
         if (isset($this->data[$name])) {
             return $this->data[$name];
         }
+
         return $default;
     }
 
@@ -74,12 +86,15 @@ class ClientGenerator
      */
     public function run(): void
     {
-        $projectDir = dirname(dirname(__DIR__));
+        if (!file_exists($this->configFile)) {
+            throw new \RuntimeException("File {$this->configFile} does not exist");
+        }
+
         $config = json_decode(file_get_contents(realpath($this->configFile)), true);
         $clientClassName = $config["clientClassName"];
         $path = $this->templatesDir . DIRECTORY_SEPARATOR . "{$clientClassName}.phtml";
         $apiClassDir = implode(DIRECTORY_SEPARATOR, [
-            dirname($projectDir) . DIRECTORY_SEPARATOR . $config["composerProjectName"],
+            $this->repoDir,
             $config["packagePath"],
             $config["srcBasePath"],
             $config["apiPackage"]
@@ -97,7 +112,7 @@ class ClientGenerator
                 if (in_array($file, ['.', '..', "AbstractApi.php", "{$clientClassName}.php"]) || is_dir($fullPath)) {
                     continue;
                 }
-    
+
                 $clsName = rtrim($file, ".php");
                 $classes[$clsName] = "\\" . $config["invokerPackage"] . "\\" . $config["apiPackage"] . "\\" . $clsName;
             }
@@ -110,12 +125,22 @@ class ClientGenerator
         require realpath($path);
         $contents = str_replace("<//php_template", "<?php", ob_get_clean());
 
+        $apiClassFile = implode(DIRECTORY_SEPARATOR, [
+            $apiClassDir,
+            "{$clientClassName}.php"
+        ]);
+
         // Write the generated file
-        file_put_contents($apiClassDir . DIRECTORY_SEPARATOR . "{$clientClassName}.php", $contents);
+        $fh = fopen($apiClassFile, 'w');
+        fputs($fh, $contents);
+        fclose($fh);
+
+        echo "\n PHP code generated! \n";
     }
 }
 
 $generator = new ClientGenerator();
 $generator->setTemplatesDir($argv[1]);
 $generator->setConfigFile($argv[2]);
+$generator->setRepoDir($argv[3]);
 $generator->run();

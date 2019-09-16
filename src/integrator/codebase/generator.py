@@ -1,5 +1,5 @@
 import os
-from mcsdk.code import generator
+from mcsdk.codebase import generator
 from mcsdk.integration.os.process import Command
 
 
@@ -23,7 +23,7 @@ class CodeGenerator(generator.AbstractGenerator):
             '-t',
             '{templates_dir}'.format(templates_dir=os.path.join(self._templates_dir, 'mustache')),
             '-c',
-            '{config_file}'.format(config_file=os.path.join(self._config_dir, 'swagger-codegen-config.json')),
+            '{config_file}'.format(config_file=os.sep.join([self._config_dir, 'swagger-codegen-config.json'])),
             '-o',
             '{sdk_folder}'.format(sdk_folder=self._repo_dir)
         ]
@@ -38,9 +38,10 @@ class CodeGenerator(generator.AbstractGenerator):
         cmd = [
             'php',
             '-f',
-            os.path.join(self._root_dir, 'src', 'generator', self._config['generators']['php']),
+            os.sep.join([self._root_dir, 'src', 'generator', self._config['generators']['php']]),
             os.path.join(self._templates_dir, 'phtml'),
-            os.path.join(self._config_dir, 'swagger-codegen-config.json')
+            os.sep.join([self._config_dir, 'swagger-codegen-config.json']),
+            self._repo_dir
         ]
 
         command = Command(cmd)
@@ -52,7 +53,7 @@ class CodeGenerator(generator.AbstractGenerator):
 
     def generate(self):
         """ Generates the SDK code """
-        if self.generate_sdk() != 0 or self.generate_client() != 0:
+        if not self.generate_sdk() or not self.generate_client():
             return 255
 
         return 0

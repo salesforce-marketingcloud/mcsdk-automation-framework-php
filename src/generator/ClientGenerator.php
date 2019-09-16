@@ -6,8 +6,6 @@
  */
 class ClientGenerator
 {
-    const DS = DIRECTORY_SEPARATOR;
-
     /**
      * @var array
      */
@@ -26,6 +24,11 @@ class ClientGenerator
     private $configFile = "";
 
     /**
+     * @var string
+     */
+    private $projectDir = "";
+
+    /**
      * @param string $templatesDir
      */
     public function setTemplatesDir(string $templatesDir)
@@ -39,6 +42,14 @@ class ClientGenerator
     public function setConfigFile(string $configFile)
     {
         $this->configFile = $configFile;
+    }
+
+    /**
+     * @param string $projectDir
+     */
+    public function setProjectDir(string $projectDir): void
+    {
+        $this->projectDir = $projectDir;
     }
 
     /**
@@ -78,12 +89,11 @@ class ClientGenerator
             throw new \RuntimeException("File {$this->configFile} does not exist");
         }
 
-        $projectDir = dirname(dirname(__DIR__));
         $config = json_decode(file_get_contents(realpath($this->configFile)), true);
         $clientClassName = $config["clientClassName"];
         $path = $this->templatesDir . DIRECTORY_SEPARATOR . "{$clientClassName}.phtml";
         $apiClassDir = implode(DIRECTORY_SEPARATOR, [
-            dirname($projectDir) . DIRECTORY_SEPARATOR . $config["composerProjectName"],
+            dirname($this->projectDir) . DIRECTORY_SEPARATOR . $config["composerProjectName"],
             $config["packagePath"],
             $config["srcBasePath"],
             $config["apiPackage"]
@@ -124,4 +134,5 @@ class ClientGenerator
 $generator = new ClientGenerator();
 $generator->setTemplatesDir($argv[1]);
 $generator->setConfigFile($argv[2]);
+$generator->setProjectDir($argv[3]);
 $generator->run();

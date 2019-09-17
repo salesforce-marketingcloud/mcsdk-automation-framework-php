@@ -28,6 +28,8 @@ class CodeGenerator(generator.AbstractGenerator):
         command = Command(cmd)
         command.run()
 
+        print(command.get_output())
+
         return command.returned_errors()
 
     def generate_client(self):

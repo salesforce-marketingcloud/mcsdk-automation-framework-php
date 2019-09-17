@@ -18,16 +18,9 @@ php:
   - "7.3"
 
 stages:
-  - setup
-  - integration
+  - generate
 
 before_install:
-  - wget https://getcomposer.org/download/1.9.0/composer.phar
-  - sudo mv ${PWD}/composer.phar /usr/local/bin/composer
-  - sudo chmod +x /usr/local/bin/composer
-  - wget https://phar.phpunit.de/phpunit-8.phar
-  - sudo mv ${PWD}/phpunit-8.phar /usr/local/bin/phpunit
-  - sudo chmod +x /usr/local/bin/phpunit
   - pip3 install wheel --no-cache-dir
 
 install:
@@ -40,6 +33,6 @@ install:
 
 jobs:
   include:
-    - stage: integration
-      name: "Integration"
+    - stage: generate
+      name: "Generate the code"
       script: python3 ${TRAVIS_BUILD_DIR}/src/integrator/main.py

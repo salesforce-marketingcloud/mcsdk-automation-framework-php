@@ -28,8 +28,6 @@ class CodeGenerator(generator.AbstractGenerator):
         command = Command(cmd)
         command.run()
 
-        print(command.get_output())
-
         return command.returned_errors()
 
     def generate_client(self):
@@ -50,7 +48,7 @@ class CodeGenerator(generator.AbstractGenerator):
 
     def generate(self):
         """ Generates the SDK code """
-        if not self.generate_sdk() or not self.generate_client():
-            return 255
+        if self.generate_sdk() and self.generate_client():
+            return 0
 
-        return 0
+        return 255

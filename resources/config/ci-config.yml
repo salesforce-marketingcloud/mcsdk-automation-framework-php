@@ -3,16 +3,16 @@ generators:
 
 repos:
   current:
-    name: "MCSDK-Automation-Framework-PHP"
+    name: "mcsdk-automation-framework-php"
   core:
-    name: "MCSDK-Automation-Framework-Core"
-    owner: "salesforce-marketingcloud"
+    name: "mcsdk-automation-framework-core"
+    owner: "sfadincescu"
     swagger_cli: "{%repos_core_dir%}/bin/swagger-codegen-cli-2.4.7.jar"
     swagger_spec: "{%repos_core_dir%}/resources/sfmc-openapi-v2.json"
     composer_cli: "{%repos_core_dir%}/bin/composer.phar"
   sdk:
-    name: "MCSDK-Automation-PHP"
-    owner: "salesforce-marketingcloud"
+    name: "mcsdk-automation-php"
+    owner: "sfadincescu"
     packageName: "SalesForce"
     tests:
       - "php-sdk-api"

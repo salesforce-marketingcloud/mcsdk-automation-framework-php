@@ -1,6 +1,5 @@
 language: php
 dist: bionic
-sudo: required
 
 addons:
   apt:

@@ -105,6 +105,7 @@ venv.bak/
 
 # IDE
 .idea
+*.iml
 .vscode
 .vs
 

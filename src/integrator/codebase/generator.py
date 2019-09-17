@@ -28,7 +28,7 @@ class CodeGenerator(generator.AbstractGenerator):
         command = Command(cmd)
         command.run()
 
-        return command.returned_errors()
+        return not command.returned_errors()
 
     def generate_client(self):
         """ Generates the SDK code custom PHP code generator """
@@ -44,7 +44,7 @@ class CodeGenerator(generator.AbstractGenerator):
         command = Command(cmd)
         command.run()
 
-        return command.returned_errors()
+        return not command.returned_errors()
 
     def generate(self):
         """ Generates the SDK code """

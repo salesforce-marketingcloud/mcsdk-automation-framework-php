@@ -50,8 +50,7 @@ class CodeGenerator(generator.AbstractGenerator):
 
     def generate(self):
         """ Generates the SDK code """
-        if self.generate_sdk():
-            if self.generate_client():
+        if self.generate_sdk() and self.generate_client():
                 return 0
 
         return 255

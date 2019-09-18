@@ -9,5 +9,5 @@ cfg['repos']['core']['composer_cli'] = os.sep.join(str(cfg['repos']['core']['com
 # Replace placeholder
 cfg['repos']['core']['composer_cli'] = str(cfg['repos']['core']['composer_cli']).replace(rep[0], rep[1])
 
-print('----- Bootstrap debug: -----')
+print('----- Bootstrap log: -----')
 print('Current directory: ' + current_dir + '\n')

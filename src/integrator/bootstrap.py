@@ -11,3 +11,5 @@ cfg['repos']['core']['composer_cli'] = str(cfg['repos']['core']['composer_cli'])
 
 print('----- Bootstrap debug: -----')
 print('Current directory: ' + current_dir + '\n')
+
+exit(0)

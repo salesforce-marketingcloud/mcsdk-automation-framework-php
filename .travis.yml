@@ -28,7 +28,7 @@ install:
   - cd ${PWD}/../
   - git clone https://salesforce-marketingcloud:${GITHUB_TOKEN}@github.com/salesforce-marketingcloud/mcsdk-automation-framework-core.git
   - cd mcsdk-automation-framework-core
-  - git checkout -f ${HEAD_BRANCH}
+  - git checkout -f if [[ -z "${HEAD_BRANCH}" ]] then ${TRAVIS_BRANCH} else ${HEAD_BRANCH} fi
   - python3 setup.py sdist
   - pip3 install dist/mcsdk-automation-framework-core-0.0.0.tar.gz
   - cd ${TRAVIS_BUILD_DIR}

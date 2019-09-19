@@ -7,7 +7,7 @@ repos:
   core:
     name: "mcsdk-automation-framework-core"
     owner: "sfadincescu"
-    swagger_cli: "{%repos_core_dir%}/bin/swagger-codegen-cli-2.4.7.jar"
+    swagger_cli: "{%repos_core_dir%}/bin/swagger-codegen-cli.jar"
     swagger_spec: "{%repos_core_dir%}/resources/sfmc-openapi-v2.json"
     composer_cli: "{%repos_core_dir%}/bin/composer.phar"
   sdk:

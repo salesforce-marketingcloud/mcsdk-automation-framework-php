@@ -14,4 +14,4 @@ setup = CodeSetup(TRAVIS_REPO_OWNER_DIR, cfg, repo_sdk_dir)
 integration = CodeIntegration(TRAVIS_REPO_OWNER_DIR, cfg, repo_sdk_dir)
 
 # Run the integration
-runner.run(config=cfg, code_generator=generator)
+runner.run(config=cfg, code_generator=generator, code_setup=setup)

@@ -14,9 +14,9 @@ branches:
   only:
     - master
     - develop
-    - feature/*
-    - release/*
-    - hotfix/*
+    - /^feature/.*$
+    - /^release/.*$/
+    - /^hotfix/.*$/
     - /^*.0$/
 
 php:

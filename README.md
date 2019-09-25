@@ -1,3 +1,3 @@
 # MCSDK-Automation-Framework-PHP
 
-This is the builder repo for PHP SDK
+[![Build Status](https://travis-ci.com/sfadincescu/mcsdk-automation-framework-php.svg?branch=1.0)](https://travis-ci.com/sfadincescu/mcsdk-automation-framework-php)

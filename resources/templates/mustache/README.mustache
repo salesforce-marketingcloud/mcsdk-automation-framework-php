@@ -22,37 +22,37 @@ For more information, please visit [{{{infoUrl}}}]({{{infoUrl}}})
 PHP 7.3 and later
 
 ## Installation & Usage
-This tutorial  assumes you are in the `mcsdk-automation-php/SalesForce` folder
 
 ### Composer
 
-To install the bindings via [Composer](http://getcomposer.org/) go to the SalesForce folder and run the command:
+To install the bindings via [Composer](http://getcomposer.org/), add the following to `composer.json`:
 
 ```
-composer install
-```
-
-
-## Tests
-
-To run the unit tests:
-
-```
-vendor/bin/phpunit --configuration phpunit.xml.dist
+{
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/{{#composerVendorName}}{{.}}{{/composerVendorName}}{{^composerVendorName}}{{gitUserId}}{{/composerVendorName}}/{{#composerProjectName}}{{.}}{{/composerProjectName}}{{^composerProjectName}}{{gitRepoId}}{{/composerProjectName}}.git"
+    }
+  ],
+  "require": {
+    "{{#composerVendorName}}{{.}}{{/composerVendorName}}{{^composerVendorName}}{{gitUserId}}{{/composerVendorName}}/{{#composerProjectName}}{{.}}{{/composerProjectName}}{{^composerProjectName}}{{gitRepoId}}{{/composerProjectName}}": "*@dev"
+  }
+}
 ```
 
 ## Getting Started
 
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
+### Usage scenarios
+#### Basic usage
 ```php
 
-// Basic usage
 $client = new {{invockerPackage}}\Api\Client();
 $assetApi = $client->getAssetApi();
 
 $asset = new {{modelPackage}}\Asset();
-
 
 try {
     $result = $assetApi->createAsset($asset);
@@ -60,7 +60,61 @@ try {
 } catch (Exception $e) {
     echo 'Exception when calling AssetApi->createAsset: ', $e->getMessage(), PHP_EOL;
 }
+```
 
+Please *note* that the configuration in this scenario is taken from the environment variables.
+
+#### Setting the configuration from code using the service container
+```php
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+
+$container = new ContainerBuilder();
+$container->setParameter("auth.client.options", [
+    'accountId' => 'accountId',
+    'clientId' => 'clientId',
+    'clientSecret' => 'clientSecret',
+    'urlAuthorize' => 'authorizationUrl',
+    'urlAccessToken' => 'This can be the same as the urlAuthorize parameter',
+    'urlResourceOwnerDetails' => ''
+]);
+
+
+$client = new {{invockerPackage}}\Api\Client($container, null, false);
+$assetApi = $client->getAssetApi();
+
+$asset = new {{modelPackage}}\Asset();
+
+try {
+    $result = $assetApi->createAsset($asset);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AssetApi->createAsset: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+#### Setting the configuration from code using the configuration builder
+```php
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+
+$client = new {{invockerPackage}}\Api\Client(null, null, false);
+
+$config = $client->getConfig();
+$config->setAccountId('accountId')
+    ->setClientId('clientId')
+    ->setClientSecret('clientSecret')
+    ->setUrlAuthorize('urlAuthorize')
+    ->setUrlAccessToken('This can be the same as the urlAuthorize parameter')
+    ->setUrlResourceOwnerDetails('');
+
+$assetApi = $client->getAssetApi();
+$asset = new {{modelPackage}}\Asset();
+
+try {
+    $result = $assetApi->createAsset($asset);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AssetApi->createAsset: ', $e->getMessage(), PHP_EOL;
+}
 ```
 
 ## Documentation for API Endpoints
@@ -76,28 +130,6 @@ Class | Method | HTTP request | Description
 
 {{#models}}{{#model}} - [{{{classname}}}]({{modelDocPath}}/{{{classname}}}.md)
 {{/model}}{{/models}}
-
-## Documentation For Authorization
-
-{{^authMethods}} All endpoints do not require authorization.
-{{/authMethods}}{{#authMethods}}{{#last}} Authentication schemes defined for the API:{{/last}}{{/authMethods}}
-{{#authMethods}}## {{{name}}}
-
-{{#isApiKey}}- **Type**: API key
-- **API key parameter name**: {{{keyParamName}}}
-- **Location**: {{#isKeyInQuery}}URL query string{{/isKeyInQuery}}{{#isKeyInHeader}}HTTP header{{/isKeyInHeader}}
-{{/isApiKey}}
-{{#isBasic}}- **Type**: HTTP basic authentication
-{{/isBasic}}
-{{#isOAuth}}- **Type**: OAuth
-- **Flow**: {{{flow}}}
-- **Authorization URL**: {{{authorizationUrl}}}
-- **Scopes**: {{^scopes}}N/A{{/scopes}}
-{{#scopes}} - **{{{scope}}}**: {{{description}}}
-{{/scopes}}
-{{/isOAuth}}
-
-{{/authMethods}}
 
 ## Author
 

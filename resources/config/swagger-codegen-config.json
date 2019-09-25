@@ -10,6 +10,6 @@
   "apiPackage": "Api",
   "hideGenerationTimestamp": true,
   "composerVendorName": "sfadincescu",
-  "composerProjectName": "mcsdk-automation-framework-php",
+  "composerProjectName": "mcsdk-automation-php",
   "clientClassName": "Client"
 }

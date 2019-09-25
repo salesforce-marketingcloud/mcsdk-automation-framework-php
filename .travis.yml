@@ -11,8 +11,10 @@ addons:
       - python3-setuptools
 
 branches:
-  except:
-    - master
+  only:
+    - feature/*
+    - release/*
+    - hotfix/*
 
 php:
   - "7.3"

@@ -11,5 +11,6 @@
   "hideGenerationTimestamp": true,
   "composerVendorName": "sfadincescu",
   "composerProjectName": "mcsdk-automation-php",
+  "composerVersion": "1.0",
   "clientClassName": "Client"
 }

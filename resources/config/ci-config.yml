@@ -13,7 +13,7 @@ repos:
   sdk:
     name: "mcsdk-automation-php"
     owner: "sfadincescu"
-    packageName: "SalesForce"
+    packageName: ""
     tests:
       - "php-sdk-api"
       - "php-sdk-auth"

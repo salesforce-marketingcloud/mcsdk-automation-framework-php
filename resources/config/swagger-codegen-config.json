@@ -1,6 +1,6 @@
 {
   "srcBasePath": "",
-  "packagePath": "",
+  "packagePath": "src",
   "variableNamingConvention": "camelCase",
   "invokerPackage": "SalesForce\\MarketingCloud",
   "groupId": "SalesForce\\MarketingCloud",

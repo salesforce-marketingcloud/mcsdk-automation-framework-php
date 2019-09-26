@@ -5,7 +5,7 @@
   "invokerPackage": "SalesForce\\MarketingCloud",
   "groupId": "SalesForce\\MarketingCloud",
   "artifactId": "php-sdk",
-  "artifactVersion": "1.0",
+  "artifactVersion": "1.0.0",
   "modelPackage": "Model",
   "apiPackage": "Api",
   "hideGenerationTimestamp": true,

@@ -75,7 +75,8 @@ $config->setAccountId('accountId')
     ->setClientId('clientId')
     ->setClientSecret('clientSecret')
     ->setAuthBaseUrl('authBaseUrl')
-    ->setAccessTokenUrl('This can be the same as the authBaseUrl parameter');
+    ->setAccessTokenUrl('This can be the same as the authBaseUrl parameter')
+    ->setResourceOwnerDetailsUrl('');
 
 $assetApi = $client->getAssetApi();
 $asset = new {{modelPackage}}\Asset();

@@ -64,34 +64,6 @@ try {
 
 Please *note* that the configuration in this scenario is taken from the environment variables.
 
-#### Setting the configuration from code using the service container
-```php
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
-$container = new ContainerBuilder();
-$container->setParameter("auth.client.options", [
-    'accountId' => 'accountId',
-    'clientId' => 'clientId',
-    'clientSecret' => 'clientSecret',
-    'urlAuthorize' => 'authorizationUrl',
-    'urlAccessToken' => 'This can be the same as the urlAuthorize parameter',
-    'urlResourceOwnerDetails' => ''
-]);
-
-
-$client = new {{invockerPackage}}\Api\Client($container, null, false);
-$assetApi = $client->getAssetApi();
-
-$asset = new {{modelPackage}}\Asset();
-
-try {
-    $result = $assetApi->createAsset($asset);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling AssetApi->createAsset: ', $e->getMessage(), PHP_EOL;
-}
-```
-
 #### Setting the configuration from code using the configuration builder
 ```php
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -102,9 +74,9 @@ $config = $client->getConfig();
 $config->setAccountId('accountId')
     ->setClientId('clientId')
     ->setClientSecret('clientSecret')
-    ->setUrlAuthorize('urlAuthorize')
-    ->setUrlAccessToken('This can be the same as the urlAuthorize parameter')
-    ->setUrlResourceOwnerDetails('');
+    ->setAuthBaseUrl('authBaseUrl')
+    ->setAccessTokenUrl('This can be the same as the authBaseUrl parameter')
+    ->setResourceOwnerDetailsUrl('');
 
 $assetApi = $client->getAssetApi();
 $asset = new {{modelPackage}}\Asset();

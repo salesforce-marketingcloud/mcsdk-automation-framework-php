@@ -49,7 +49,7 @@ Please follow the [installation procedure](#installation--usage) and then run th
 #### Basic usage
 ```php
 
-$client = new {{invockerPackage}}\Api\Client();
+$client = new {{invokerPackage}}\Api\Client();
 $assetApi = $client->getAssetApi();
 
 $asset = new {{modelPackage}}\Asset();
@@ -77,7 +77,7 @@ Please *note* that the configuration in this scenario is taken from the environm
 ```php
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-$client = new {{invockerPackage}}\Api\Client(null, null, false);
+$client = new {{invokerPackage}}\Api\Client(null, null, false);
 
 $config = $client->getConfig();
 $config->setAccountId('accountId')

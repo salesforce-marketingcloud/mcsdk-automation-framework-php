@@ -9,7 +9,7 @@
   "modelPackage": "Model",
   "apiPackage": "Api",
   "hideGenerationTimestamp": true,
-  "composerVendorName": "sfadincescu",
+  "composerVendorName": "salesforce-marketingcloud",
   "composerProjectName": "mcsdk-automation-php",
   "clientClassName": "Client"
 }

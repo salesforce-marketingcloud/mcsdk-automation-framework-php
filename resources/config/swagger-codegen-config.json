@@ -9,7 +9,7 @@
   "modelPackage": "Model",
   "apiPackage": "Api",
   "hideGenerationTimestamp": true,
-  "composerVendorName": "salesforce",
+  "composerVendorName": "salesforce-mc",
   "composerProjectName": "marketing-cloud-sdk",
   "clientClassName": "Client"
 }

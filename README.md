@@ -6,7 +6,7 @@ This repo is part of the Salesforce Marketing Cloud SDK Automation Framework.
 ## Contents
 - Custom Swagger Codegen [mustache files](https://github.com/salesforce-marketingcloud/mcsdk-automation-framework-php/tree/master/resources/templates/mustache)
 - Python scripts for PHP SDK Automation
-- Client generator which generates the [Client](https://github.com/salesforce-marketingcloud/mcsdk-automation-framework-php/blob/master/src/generator/ClientGenerator.php) class
+- Client generator which generates the [Client](https://github.com/salesforce-marketingcloud/mcsdk-automation-php/blob/master/src/Api/Client.php) class
 
 ## Getting Started
 

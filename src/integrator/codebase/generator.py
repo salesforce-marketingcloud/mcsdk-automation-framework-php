@@ -1,10 +1,22 @@
 import os
+import shutil
+
 from mcsdk.codebase import generator
 from mcsdk.integration.os.process import Command
 
 
 class CodeGenerator(generator.AbstractGenerator):
     """ Handles the Swagger codegen process but also custom generation processes """
+
+    def _delete_standard_tests(self):
+        """ The testing framework is also automated so we must delete the existing generated tests """
+        api_tests_dir = os.path.join(self._repo_dir, 'test', 'Api')
+        if os.path.isdir(api_tests_dir):
+            shutil.rmtree(api_tests_dir)
+
+        model_tests_dir = os.path.join(self._repo_dir, 'test', 'Model')
+        if os.path.isdir(model_tests_dir):
+            shutil.rmtree(model_tests_dir)
 
     def generate_sdk(self):
         """ Generates the SDK code using the swagger codegen library """
@@ -50,6 +62,8 @@ class CodeGenerator(generator.AbstractGenerator):
 
     def generate(self):
         """ Generates the SDK code """
+        self._delete_standard_tests()
+
         if self.generate_sdk() and self.generate_client():
             return 0
 
